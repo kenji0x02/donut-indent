@@ -4,15 +4,10 @@
  * https://github.com/kenji0x02/donut-indent
  */
 
-var DonutIndent = (function($){
+(function($){
   "use strict";
 
   var HEADER_TAG_PREFIX = 'donut_indent_';
-  var HEADER_TAG_DEPTH = 3;
-  var HEADER_TAG_NUMBERS = Array.apply(null, Array(HEADER_TAG_DEPTH)).map(function (_, i) {return i+1;});
-  var RADIUS_RADIO = $.extend(true, [], HEADER_TAG_NUMBERS).reverse().map(function(el) {
-    return Math.pow(1.0 * el / HEADER_TAG_NUMBERS.length, 1 / 1.8);
-  });
 
   function getHeaderFontSize(headerNumber) {
     return $(headerNumber + ":header").css('fontSize').replace("px", "") - 0;
@@ -70,7 +65,7 @@ var DonutIndent = (function($){
 
     // 外側の円から描画していく
     indentArray.forEach(function(el, index, array) {
-      var radius = Math.round(iconHalfSize * RADIUS_RADIO[index]);
+      var radius = Math.round(iconHalfSize * DonutIndent.radiusRatio[index]);
       // 100%の円
       renderDonut(radius - 1, center, 100, "#fff", canvas);
       // 扇型
@@ -87,7 +82,7 @@ var DonutIndent = (function($){
   // hタグを連番に変換
   function createSequentilNo(hObject) {
     var initialTag = {};
-    HEADER_TAG_NUMBERS.forEach(function(el) {
+    DonutIndent.headerTagNumbers.forEach(function(el) {
       initialTag[el] = 0;
     });
 
@@ -108,7 +103,7 @@ var DonutIndent = (function($){
       headers[headerNumber] += 1;
 
       // reset
-      HEADER_TAG_NUMBERS.forEach(function(el) {
+      DonutIndent.headerTagNumbers.forEach(function(el) {
         if(el > headerNumber) {
           headers[el] = 0;
         }
@@ -123,7 +118,7 @@ var DonutIndent = (function($){
     for(var i = 1; i < sequentialNo.length; i++) {
       // ヘッダ階層が浅くなった時(例: h3からh2へ移った時)
       if(sequentialNo[i]['headerNumber'] < sequentialNo[i-1]['headerNumber']) {
-        var normalizeHeder = HEADER_TAG_NUMBERS.filter(function(el) {
+        var normalizeHeder = DonutIndent.headerTagNumbers.filter(function(el) {
           return (el > sequentialNo[i]['headerNumber']);
         });
 
@@ -140,7 +135,7 @@ var DonutIndent = (function($){
       // ラストのとき
       // この時は全部の要素について規格化しちゃえばいい
       if(i == (sequentialNo.length - 1)) {
-        HEADER_TAG_NUMBERS.forEach(function(el, index, array) {
+        DonutIndent.headerTagNumbers.forEach(function(el, index, array) {
           var max = sequentialNo[i][el];
           for(var j = i; j >= 0; j--) {
             if(sequentialNo[j][el] == 0) {
@@ -159,7 +154,7 @@ var DonutIndent = (function($){
 
     // IDに変換(_で結合)
     return tag.map(function(el, index, array) {
-      return HEADER_TAG_PREFIX + HEADER_TAG_NUMBERS.map(function(e) {return el[e];}).join('_');
+      return HEADER_TAG_PREFIX + DonutIndent.headerTagNumbers.map(function(e) {return el[e];}).join('_');
     });
   }
 
@@ -181,10 +176,33 @@ var DonutIndent = (function($){
     });
   }
 
-  // べた書きのHTMLを書き換えるために読み込み時にも実行
-  appendDonutIndent();
+  var DonutIndent = {};
 
-  // marked等利用してmarkdownを読み込む時のためにエクスポート
-  return appendDonutIndent;
+  DonutIndent = {
+    defaults: {
+      indentDepth: 3,
+      color: "#59bb0c",
+      gammmaValue: 1.8
+    },
+
+    settings: $.extend(true, {}, DonutIndent.defaults),
+
+    init: function(options) {
+      DonutIndent.settings = $.extend(DonutIndent.defaults, options);
+      DonutIndent.headerTagNumbers = Array.apply(null, Array(DonutIndent.settings.indentDepth)).map(function (_, i) {return i+1;});
+      DonutIndent.radiusRatio = $.extend(true, [], DonutIndent.headerTagNumbers).reverse().map(function(el) {
+        return Math.pow(1.0 * el / DonutIndent.headerTagNumbers.length, 1 / DonutIndent.settings.gammmaValue);
+      });
+    }
+  };
+
+  // export
+  $.donutIndent = function(options){
+    DonutIndent.init(options);
+    appendDonutIndent();
+  }
 
 })(jQuery);
+
+// べた書きのHTMLを書き換えるために読み込み時にも実行
+$.donutIndent();
