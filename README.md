@@ -6,6 +6,19 @@ Visualization tool for HTML heading tags(\<h1>...\<h6>) using "donut" chart.
 
 https://kenji0x02.github.io/donut-indent/sample.html
 
+
+## Option
+
+|name|meaning|default|
+|:--|:--|:--|
+|indentDepth|HTML heading depth|3 (i.e. h1, h2, and h3)|
+
+## Install
+
+```
+bower install donut-indent --save
+```
+
 ## Usage
 
 Static HTML:
@@ -39,12 +52,6 @@ $(document).ready(function(){
 });
 </script>
 ```
-
-## Option
-
-|name|meaning|default|
-|:--|:--|:--|
-|indentDepth|HTML heading depth|3 (i.e. h1, h2, and h3)|
 
 ## License
 
