@@ -169,7 +169,7 @@ var DonutIndent = (function($){
   }
 
   // べた書きのHTMLを書き換えるために読み込み時にも実行
-  appendDonutIndent;
+  appendDonutIndent();
 
   // marked等利用してmarkdownを読み込む時のためにエクスポート
   return appendDonutIndent;
