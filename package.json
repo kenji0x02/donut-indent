@@ -1,0 +1,24 @@
+{
+  "name": "donut-indent",
+  "version": "0.0.1",
+  "description": "Visualization tool for HTML heading tags(\\<h1>...\\<h6>) using \"donut\" chart.",
+  "main": "./lib/donut-indent.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kenji0x02/donut-indent.git"
+  },
+  "author": "kenji0x02",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kenji0x02/donut-indent/issues"
+  },
+  "homepage": "https://github.com/kenji0x02/donut-indent",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-uglify": "^1.5.1"
+  }
+}

@@ -12,7 +12,7 @@ Static HTML:
 
 ```html
 <script src="./jquery.min.js" type="text/javascript"></script>
-<script src="./donut-indent.js" type="text/javascript"></script>
+<script src="./donut-indent.min.js" type="text/javascript"></script>
 ```
 
 With Markdown Parser (ex. marked.js):
@@ -22,7 +22,7 @@ With Markdown Parser (ex. marked.js):
 
 <script src="./jquery.min.js" type="text/javascript"></script>
 <script src="./marked.min.js" type="text/javascript"></script>
-<script src="./donut-indent.js" type="text/javascript"></script>
+<script src="./donut-indent.min.js" type="text/javascript"></script>
 <script>
 $(document).ready(function(){
   var target = $("#markdown_content");
