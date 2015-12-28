@@ -16,6 +16,7 @@ https://kenji0x02.github.io/donut-indent/sample.html
 |name|meaning|default|
 |:--|:--|:--|
 |indentDepth|HTML heading depth|3 (i.e. h1, h2, and h3)|
+|color|color of outermost donut|#59bb0c|
 
 ## Install
 

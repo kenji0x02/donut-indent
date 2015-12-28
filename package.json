@@ -17,8 +17,15 @@
   },
   "homepage": "https://github.com/kenji0x02/donut-indent",
   "devDependencies": {
+    "browserify": "^12.0.1",
     "gulp": "^3.9.0",
-    "gulp-concat": "^2.6.0",
-    "gulp-uglify": "^1.5.1"
+    "gulp-uglify": "^1.5.1",
+    "gulp-header": "^1.7.1",
+    "gulp-load-plugins": "^1.1.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "browser": {
+    "less": "./bower_components/less/dist/less.js"
   }
 }

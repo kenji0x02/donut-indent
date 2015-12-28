@@ -1,12 +1,36 @@
 var gulp = require('gulp');
-var uglify = require('gulp-uglify');
-var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');// $で使用
+// for browserify
+var browserify = require('browserify');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
+var $ = require('gulp-load-plugins')({
+  pattern: ['gulp-*', 'gulp.*'],
+  replaceString: /\bgulp[\-.]/
+});
+var header = require('gulp-header');// browserifyを使うとuglifyのpreserveCommentsが使えないので
+var pkg = require('./package.json');
+
+var copyright = [
+  "/**",
+  " * <%= pkg.name %> <%= pkg.version %>",
+  " * Copyright (c) 2015, <%= pkg.author %>. <%= pkg.license%> Licensed",
+  " * <%= pkg.homepage %> ",
+  " */",
+  ""
+].join('\n');
 
 gulp.task('uglify', function() {
-  gulp.src('./lib/donut-indent.js')
-    .pipe(uglify({preserveComments: 'some'}))
-    .pipe(concat('donut-indent.min.js'))
+  browserify({
+    entries: ['lib/donut-indent.js']
+  })
+    .bundle()
+    .pipe(source('donut-indent.min.js')) // 出力ファイル名
+    .pipe(buffer())
+    .pipe($.uglify())
+    .pipe(header(copyright, {
+      pkg: pkg
+    }))
     .pipe(gulp.dest('.'));
 });
-
 gulp.task('default', ['uglify']);
