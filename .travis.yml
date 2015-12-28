@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - "4.1"
+
+before_script:
+  - npm install
+
+script:
+  - gulp uglify
+
+notifications:
+  email:
+    recipients: 
+      - kenji0x02@gmail.com
+    on_success: change
+    on_failure: always
+
