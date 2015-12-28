@@ -1,3 +1,5 @@
+![Donut Indent](https://raw.githubusercontent.com/kenji0x02/images/master/donut.png)
+
 # Donut Indent
 
 [![Build Status](https://travis-ci.org/kenji0x02/donut-indent.svg)](https://travis-ci.org/kenji0x02/donut-indent)
