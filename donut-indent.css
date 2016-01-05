@@ -1,0 +1,48 @@
+#modal-content {
+  position: relative;
+  display:none;
+  width:90%;
+  padding:10px 20px;
+}
+
+#modal-wrap {
+  color: #fff;
+  z-index:2;
+  position:fixed;
+  display:none;
+  top: 0;
+  left: 0;
+  width:100%;
+  height:100%;
+  overflow:auto;
+}
+
+#modal-overlay{
+  z-index:1;
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  /* スマホのナビバー対応 */
+  height:120%;
+  background-color:rgba(0,0,0,0.65);
+}
+
+.lock {
+  overflow: hidden;
+}
+div#modal-content ul {
+  margin: 0 0 0 1em;
+  padding: 0;
+}
+
+div#modal-content a {
+  color: #fff;
+}
+
+div#modal-content a:hover {
+  text-decoration: none;
+}
+
+
