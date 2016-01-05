@@ -10,6 +10,7 @@ var $ = require('gulp-load-plugins')({
 });
 var header = require('gulp-header');// browserifyを使うとuglifyのpreserveCommentsが使えないので
 var pkg = require('./package.json');
+var sourcemaps = require('gulp-sourcemaps');
 
 var copyright = [
   "/**",
@@ -22,15 +23,18 @@ var copyright = [
 
 gulp.task('uglify', function() {
   browserify({
-    entries: ['lib/donut-indent.js']
+    entries: ['lib/donut-indent.js'],
+    debug: true
   })
     .bundle()
     .pipe(source('donut-indent.min.js')) // 出力ファイル名
     .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true})) // sourcemaps
     .pipe($.uglify())
-    .pipe(header(copyright, {
+    .pipe(header(copyright, { // sourcemaps.writeよりも先に!
       pkg: pkg
     }))
+    .pipe(sourcemaps.write('./')) // sourcemaps
     .pipe(gulp.dest('.'));
 });
 gulp.task('default', ['uglify']);
