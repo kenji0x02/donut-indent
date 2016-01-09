@@ -58,6 +58,12 @@ $(document).ready(function(){
 </script>
 ```
 
+## Test
+
+```
+npm test
+```
+
 ## License
 
 Donut-Indent is available under the [MIT license](https://github.com/kenji0x02/donut-indent/blob/master/LICENSE).

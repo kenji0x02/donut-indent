@@ -4,7 +4,7 @@
   "description": "Visualization tool for HTML heading tags(\\<h1>...\\<h6>) using \"donut\" chart.",
   "main": "./lib/donut-indent.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "karma start"
   },
   "repository": {
     "type": "git",
@@ -15,18 +15,32 @@
   "bugs": {
     "url": "https://github.com/kenji0x02/donut-indent/issues"
   },
+  "directories": {
+    "test": "test/"
+  },
   "homepage": "https://github.com/kenji0x02/donut-indent",
   "devDependencies": {
     "browserify": "^12.0.1",
+    "espowerify": "^0.10.1",
     "gulp": "^3.9.0",
     "gulp-header": "^1.7.1",
     "gulp-load-plugins": "^1.1.0",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.5.1",
+    "karma": "^0.13.19",
+    "karma-browserifast": "^0.7.0",
+    "karma-browserify": "^4.4.2",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-mocha": "^0.2.1",
+    "karma-mocha-debug": "^0.1.2",
+    "karma-mocha-reporter": "^1.1.5",
+    "mocha": "^2.3.4",
+    "power-assert": "^1.2.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
   "browser": {
+    "jquery": "./bower_components/jquery/dist/jquery.js",
     "less": "./bower_components/less/dist/less.js"
   }
 }
