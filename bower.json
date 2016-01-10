@@ -1,7 +1,7 @@
 {
   "name": "donut-indent",
   "description": "Visualization tool for HTML heading tags(\\<h1>...\\<h6>) using \"donut\" chart.",
-  "main": "./lib/donut-indent.js",
+  "main": "./src/donut-indent.js",
   "authors": [
     "kenji0x02"
   ],
@@ -20,7 +20,9 @@
     "tests",
     "*.md",
     "gulpfile.js",
-    "package.json"
+    "package.json",
+    ".travis.yml",
+    "karma.conf.js"
   ],
   "dependencies": {
     "jquery": "latest"

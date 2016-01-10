@@ -24,7 +24,7 @@ var copyright = [
 
 gulp.task('uglify', function() {
   browserify({
-    entries: ['lib/donut-indent.js'],
+    entries: ['src/donut-indent.js'],
     debug: true
   })
     .bundle()

@@ -2,7 +2,7 @@
   "name": "donut-indent",
   "version": "0.0.1",
   "description": "Visualization tool for HTML heading tags(\\<h1>...\\<h6>) using \"donut\" chart.",
-  "main": "./lib/donut-indent.js",
+  "main": "./src/donut-indent.js",
   "scripts": {
     "test": "karma start"
   },

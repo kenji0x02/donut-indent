@@ -1,7 +1,7 @@
 "use strict";
 
 var assert = require('power-assert');
-var color = require('../lib/color.js')
+var color = require('../src/color.js')
 
 describe('color', function () {
   describe('#darken()', function () {

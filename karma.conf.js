@@ -18,7 +18,7 @@ module.exports = function(config) {
     files: [
       // donut-indentモジュールはjqueryに依存するので
       './bower_components/jquery/dist/jquery.js',
-      './lib/*.js',
+      './src/*.js',
       './test/*.spec.js'
     ],
 
@@ -32,7 +32,7 @@ module.exports = function(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       './test/*.spec.js': 'browserify',
-      './lib/*.js': 'browserify'
+      './src/*.js': 'browserify'
     },
 
 
@@ -40,7 +40,7 @@ module.exports = function(config) {
       debug: true,
       files: [
         './test/*.spec.js',
-        './lib/*.js'
+        './src/*.js'
       ],
       transform: [
         'espowerify'
