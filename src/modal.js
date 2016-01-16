@@ -8,10 +8,6 @@
 // https://syncer.jp/jquery-modal-window
 // http://coolwebwindow.com/jquery-lab/archives/352
 
-// スクロールバーの横幅を取得
-$('html').append('<div class="scrollbar" style="overflow:scroll;"></div>');
-var scrollsize = window.innerWidth - $('.scrollbar').prop('clientWidth');
-$('.scrollbar').hide();
 
 // 新たに生成した要素でjQueryイベントが有効にならないので
 // documentに対してクリックイベントを登録する。ただしパフォーマンスは低下。
@@ -52,33 +48,42 @@ $(document).on('click',".donut-indent", function() {
 
 //センタリングをする関数
 function centeringModalSyncer() {
-
-  //画面(ウィンドウ)の幅を取得し、変数[w]に格納
   var w = $(window).width();
-
-  //画面(ウィンドウ)の高さを取得し、変数[h]に格納
   var h = $(window).height();
-
-  //コンテンツ(#modal-content)の幅を取得し、変数[cw]に格納
   var cw = $("#modal-content").outerWidth();
-
-  //コンテンツ(#modal-content)の高さを取得し、変数[ch]に格納
   var ch = $("#modal-content").outerHeight();
 
-  if ((ch > h) && (cw > w)) {
-    $('#modal-content').css({'left': 0 + 'px','top': 0 + 'px'});
-  } else if ((ch > h) && (cw < w)) {
-    var x = (w - scrollsize - cw) / 2;
-    $('#modal-content').css({'left': x + 'px','top': 0 + 'px'});
-  } else if ((ch < h) && (cw > w)) {
-    var y = (h - scrollsize - ch) / 2;
-    $('#modal-content').css({'left': 0 + 'px','top': y + 'px'});
+  var scrollSize = getScrollBarWidth();
+  var position = getModalPosition(scrollSize, cw, w, ch, h);
+  $('#modal-content').css({'left': position.x + 'px','top': position.y + 'px'});
+}
+
+// 最近のブラウザのスクロールバーは非表示なので大抵ゼロですけどね。。
+function getScrollBarWidth() {
+  $('html').append('<div class="scrollbar" style="overflow:scroll;"></div>');
+  var scrollsize = window.innerWidth - $('.scrollbar').prop('clientWidth');
+  $('.scrollbar').hide();
+  return scrollsize;
+}
+
+function getModalPosition(scrollSize, contentWidth, windowWidth, contentHeight, windowHeight) {
+  var diffX = contentWidth - windowWidth;
+  var diffY = contentHeight - windowHeight;
+  if(diffX > 0 && diffY > 0) {
+    return {x:0, y:0};
+  } else if(diffX < 0 && diffY > 0) {
+    return {x:(-diffX - scrollSize)/2, y:0};
+  } else if(diffX > 0 && diffY < 0) {
+    return {x:0, y:(-diffY - scrollSize)/2};
   } else {
-    var x = (w - cw) / 2;
-    var y = (h - ch) / 2;
-    $('#modal-content').css({'left': x + 'px','top': y + 'px'});
+    return {x:-diffX/2, y:-diffY/2};
   }
-};
+}
 
 //リサイズされたら、センタリングをする関数[centeringModalSyncer()]を実行する
-$( window ).resize( centeringModalSyncer ) ;
+$(window).resize(centeringModalSyncer);
+
+module.exports = {
+  _getScrollBarWidth: getScrollBarWidth,
+  _getModalPosition: getModalPosition
+};
