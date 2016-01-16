@@ -43,6 +43,15 @@ function createSequentialNo(hObject, headerTagNumbers) {
 }
 
 function createPercentage(sequentialNo, headerTagNumbers) {
+  if(sequentialNo.length == 1) {
+    headerTagNumbers.forEach(function(e) {
+      if(e == sequentialNo[0][e]) {
+        sequentialNo[0][e] = 100;
+      } else {
+        sequentialNo[0][e] = 0;
+      }
+    });
+  }
   // 進捗率に変換
   for(var i = 1; i < sequentialNo.length; i++) {
     // ヘッダ階層が浅くなった時(例: h3からh2へ移った時)
@@ -87,8 +96,33 @@ function createID(hObject, headerTagNumbers) {
   });
 }
 
+function getHeaderFontSize(headerNumber) {
+  return $(headerNumber + ":header").css('fontSize').replace("px", "") - 0;
+}
+
+function getHeaderLineHeight(headerNumber) {
+  return $(headerNumber + ":header").css('line-height').replace("px", "") - 0;
+}
+
+function calcIconHalfSize(fontSize) {
+  return Math.round(fontSize * 0.45);
+}
+
+function calcMarginTop(lineHeight, fontSize) {
+  return Math.round(fontSize * 0.05 + (lineHeight - fontSize) * 0.5);
+}
+
+function calcCenter(fontSize) {
+  return Math.round(fontSize * 0.45);
+}
+
 module.exports = {
   createSequentialNo: createSequentialNo,
   createPercentage: createPercentage,
-  createID: createID
-}
+  createID: createID,
+  getHeaderFontSize: getHeaderFontSize,
+  getHeaderLineHeight: getHeaderLineHeight,
+  calcIconHalfSize: calcIconHalfSize,
+  calcMarginTop: calcMarginTop,
+  calcCenter: calcCenter
+};

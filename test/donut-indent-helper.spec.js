@@ -67,6 +67,17 @@ describe('helper', function () {
     {1:100, 2:100, 3:0, headerNumber:2}
   ];
 
+  var hObject4 = ['h1'].map(function(el){
+    return document.createElement(el);
+  });
+
+  var seqNo4 = [
+    {1:1, 2:0, 3:0, headerNumber:1}];
+
+  var percentage4 = [
+    {1:100, 2:0, 3:0, headerNumber:1}
+  ];
+
   describe('#createSequentialNo(hObject, headerTagNumbers)', function () {
     it('create sequential number object :simple case', function () {
       assert.deepEqual(helper.createSequentialNo(hObject1, [1, 2, 3]), seqNo1);
@@ -85,6 +96,12 @@ describe('helper', function () {
     });
   });
 
+  describe('#createSequentialNo(hObject, headerTagNumbers)', function () {
+    it('create sequential number object : only h1', function () {
+      assert.deepEqual(helper.createSequentialNo(hObject4, [1, 2, 3]), seqNo4);
+    });
+  });
+
   describe('#createPercentage(sequentialNo, headerTagNumbers)', function () {
     it('create percentage object :simple case', function () {
       assert.deepEqual(helper.createPercentage(seqNo1, [1, 2, 3]), percentage1);
@@ -98,8 +115,14 @@ describe('helper', function () {
   });
 
   describe('#createPercentage(sequentialNo, headerTagNumbers)', function () {
-    it('create percentage object :first heading tag is not h1 case', function () {
+    it('create percentage object :first heading tag is not h3 case', function () {
       assert.deepEqual(helper.createPercentage(seqNo3, [1, 2, 3]), percentage3);
+    });
+  });
+
+  describe('#createPercentage(sequentialNo, headerTagNumbers)', function () {
+    it('create percentage object : only h1', function () {
+      assert.deepEqual(helper.createPercentage(seqNo4, [1, 2, 3]), percentage4);
     });
   });
 
@@ -141,6 +164,15 @@ describe('helper', function () {
         "donut_indent_100_100_0"
       ];
       assert.deepEqual(helper.createID(hObject3, [1, 2, 3]), expected);
+    });
+  });
+
+  describe('#createID(hObject, headerTagNumbers)', function () {
+    it('create heading IDs array :only h1', function () {
+      var expected = [
+        "donut_indent_100_0_0"
+      ];
+      assert.deepEqual(helper.createID(hObject4, [1, 2, 3]), expected);
     });
   });
 });
