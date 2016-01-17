@@ -1,0 +1,15 @@
+engines:
+  eslint:
+    enabled: true
+  csslint:
+    enabled: false
+ratings:
+  paths:
+  - src/**
+exclude_paths:
+  - test/**
+  - .eslintrc.js
+  - donut-indent.min.js
+  - donut-indent.min.js.map
+  - gulpfile.js
+  - karma.conf.js
