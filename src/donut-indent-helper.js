@@ -4,7 +4,7 @@
  * https://github.com/kenji0x02/donut-indent
  */
 
-"use strict";
+'use strict';
 
 var HEADER_TAG_PREFIX = 'donut_indent_';
 var utils = require('./utils.js');
@@ -43,9 +43,9 @@ function createSequentialNo(hObject, headerTagNumbers) {
 }
 
 function createPercentage(sequentialNo, headerTagNumbers) {
-  if(sequentialNo.length == 1) {
+  if(sequentialNo.length === 1) {
     headerTagNumbers.forEach(function(e) {
-      if(e == sequentialNo[0][e]) {
+      if(e === sequentialNo[0][e]) {
         sequentialNo[0][e] = 100;
       } else {
         sequentialNo[0][e] = 0;
@@ -56,35 +56,28 @@ function createPercentage(sequentialNo, headerTagNumbers) {
   for(var i = 1; i < sequentialNo.length; i++) {
     // ヘッダ階層が浅くなった時(例: h3からh2へ移った時)
     if(sequentialNo[i]['headerNumber'] < sequentialNo[i-1]['headerNumber']) {
-      var normalizeHeader = headerTagNumbers.filter(function(el) {
-        return (el > sequentialNo[i]['headerNumber']);
-      });
-
-      normalizeHeader.forEach(function(el) {
-        var max = sequentialNo[i-1][el];
-        for(var j = i - 1; j >= 0; j--) {
-          if(sequentialNo[j][el] == 0) {
-            break;
-          }
-          sequentialNo[j][el] = Math.round(sequentialNo[j][el] / max * 100);
-        }
-      });
+      var normalizeHeader = headerTagNumbers.filter(isLarge, {headerNumber: sequentialNo[i]['headerNumber']});
+      normalizeHeader.forEach(normalizeSeqNo, {maxIndex: i - 1, sequentialNo: sequentialNo});
     }
     // ラストのとき
     // この時は全部の要素について規格化しちゃえばいい
-    if(i == (sequentialNo.length - 1)) {
-      headerTagNumbers.forEach(function(el) {
-        var max = sequentialNo[i][el];
-        for(var j = i; j >= 0; j--) {
-          if(sequentialNo[j][el] == 0) {
-            break;
-          }
-          sequentialNo[j][el] = Math.round(sequentialNo[j][el] / max * 100);
-        }
-      });
+    if(i === (sequentialNo.length - 1)) {
+      headerTagNumbers.forEach(normalizeSeqNo, {maxIndex: i, sequentialNo: sequentialNo});
     }
   }
   return sequentialNo;
+}
+
+function isLarge(el) { return el > this.headerNumber;}
+
+function normalizeSeqNo(el) {
+  var max = this.sequentialNo[this.maxIndex][el];
+  for(var j = this.maxIndex; j >= 0; j--) {
+    if(this.sequentialNo[j][el] === 0) {
+      break;
+    }
+    this.sequentialNo[j][el] = Math.round(this.sequentialNo[j][el] / max * 100);
+  }
 }
 
 function createID(hObject, headerTagNumbers) {
@@ -97,11 +90,11 @@ function createID(hObject, headerTagNumbers) {
 }
 
 function getHeaderFontSize(headerNumber) {
-  return $(headerNumber + ":header").css('fontSize').replace("px", "") - 0;
+  return $(headerNumber + ':header').css('fontSize').replace('px', '') - 0;
 }
 
 function getHeaderLineHeight(headerNumber) {
-  return $(headerNumber + ":header").css('line-height').replace("px", "") - 0;
+  return $(headerNumber + ':header').css('line-height').replace('px', '') - 0;
 }
 
 function calcIconHalfSize(fontSize) {

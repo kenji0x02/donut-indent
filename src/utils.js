@@ -9,8 +9,8 @@ var headingNumber = function(hObject){
   }else {
     return null;
   }
-} 
+};
 
 module.exports = {
   headingNumber: headingNumber
-}
+};
