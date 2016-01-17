@@ -3,6 +3,7 @@
 # Donut Indent
 
 [![Build Status](https://travis-ci.org/kenji0x02/donut-indent.svg)](https://travis-ci.org/kenji0x02/donut-indent)
+[![Code Climate](https://codeclimate.com/repos/569a4945b23bff7a6c00d04a/badges/dc425ef6736572a5df7c/gpa.svg)](https://codeclimate.com/repos/569a4945b23bff7a6c00d04a/feed)
 
 Visualization tool for HTML heading tags(\<h1>...\<h6>) using "donut" chart.
 
