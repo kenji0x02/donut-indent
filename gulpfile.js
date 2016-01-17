@@ -39,4 +39,14 @@ gulp.task('uglify', function() {
     .pipe(gulp.dest('.'));
 });
 
+// eslint
+var eslint = require('gulp-eslint');
+
+gulp.task('lint', function(){
+  gulp.src(['./src/*.js', '!node_modules/**','!bower_components/**'])
+  .pipe(eslint())
+  .pipe(eslint.format())
+  .pipe(eslint.failAfterError());
+});
+
 gulp.task('default', ['uglify']);
