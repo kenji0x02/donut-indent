@@ -4,7 +4,7 @@
   "description": "Visualization tool for HTML heading tags(\\<h1>...\\<h6>) using \"donut\" chart.",
   "main": "./src/donut-indent.js",
   "scripts": {
-    "test": "karma start"
+    "test": "./node_modules/karma/bin/karma start"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
     "browserify": "^12.0.1",
     "espowerify": "^0.10.1",
     "gulp": "^3.9.0",
+    "gulp-eslint": "^1.1.1",
     "gulp-header": "^1.7.1",
     "gulp-load-plugins": "^1.1.0",
     "gulp-sourcemaps": "^1.6.0",
