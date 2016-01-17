@@ -1,17 +1,12 @@
 /**
  * donut-indent
- * Copyright (c) 2015, kenji0x02. (MIT Licensed)
+ * Copyright (c) 2016, kenji0x02. (MIT Licensed)
  * https://github.com/kenji0x02/donut-indent
  */
 
 (function($){
-  "use strict";
+  'use strict';
 
-  var modal = require('./modal.js');
-  var utils = require('./utils.js');
-  var helper = require('./donut-indent-helper.js');
-
-  var DARKEN_PERCENTAGE_DIFF = 10;
 
   function initializeCanvasSize(iconSize, marginTop, canvas) {
     $(canvas).css('margin-top', marginTop);
@@ -21,7 +16,7 @@
   }
 
   function renderDonut(radius, center, percentage, colorCode, canvas) {
-    var ctx = canvas.getContext("2d");
+    var ctx = canvas.getContext('2d');
     var ninetyDegree = 1.5707963267948966; // 90*Math.PI/180;
     var startRadian = -ninetyDegree;
     var endRadian = ninetyDegree * (percentage * 0.04 - 1);
@@ -33,10 +28,11 @@
   }
 
   function renderDonutIndent(canvasID) {
-    var indentArray = canvasID.replace("donut_indent_", "").split("_").map(function(el){
+    var helper = require('./donut-indent-helper.js');
+    var indentArray = canvasID.replace('donut_indent_', '').split('_').map(function(el){
       return el - 0;
     });
-    var headerTag = "h" + indentArray.filter(function(el, index, array){return (el != 0);}).length;
+    var headerTag = 'h' + indentArray.filter(function(el){return (el !== 0);}).length;
     var fontSize = helper.getHeaderFontSize(headerTag);
     var lineHeight = helper.getHeaderLineHeight(headerTag);
     var iconHalfSize = helper.calcIconHalfSize(fontSize);
@@ -48,10 +44,10 @@
     initializeCanvasSize(iconHalfSize * 2, marginTop, canvas);
 
     // 外側の円から描画していく
-    indentArray.forEach(function(el, index, array) {
+    indentArray.forEach(function(el, index) {
       var radius = Math.round(iconHalfSize * DonutIndent.radiusRatio[index]);
       // 100%の円
-      renderDonut(radius - 1, center, 100, "#fff", canvas);
+      renderDonut(radius - 1, center, 100, '#fff', canvas);
       // 扇型
       renderDonut(radius, center, el, DonutIndent.color[index], canvas);
     });
@@ -67,7 +63,9 @@
   }
 
   function appendDonutIndent() {
-    var hObject = $(":header").filter(function(index, el){return (utils.headingNumber(el) <= DonutIndent.settings.indentDepth)});
+    var utils = require('./utils.js');
+    var helper = require('./donut-indent-helper.js');
+    var hObject = $(':header').filter(function(index, el){return (utils.headingNumber(el) <= DonutIndent.settings.indentDepth);});
     var headerIDs = helper.createID(hObject, DonutIndent.headerTagNumbers);
     appendCanvas(hObject,headerIDs);
     headerIDs.forEach(function(el) {
@@ -84,13 +82,14 @@
   DonutIndent = {
     defaults: {
       indentDepth: 3,
-      color: "#59bb0c",
+      color: '#59bb0c',
       gammaValue: 1.8
     },
 
     settings: $.extend(true, {}, DonutIndent.defaults),
 
     init: function(options) {
+      var DARKEN_PERCENTAGE_DIFF = 10;
       var color = require('./color.js');
       DonutIndent.settings = $.extend(DonutIndent.defaults, options);
       DonutIndent.headerTagNumbers = Array.apply(null, Array(DonutIndent.settings.indentDepth)).map(function (_, i) {return i+1;});
@@ -107,7 +106,7 @@
   $.donutIndent = function(options){
     DonutIndent.init(options);
     appendDonutIndent();
-  }
+  };
 
 })(jQuery);
 

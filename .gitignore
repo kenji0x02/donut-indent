@@ -4,3 +4,4 @@ bower_components/
 .idea/
 npm-debug.log
 npm-debug.log.*
+.DS_Store
