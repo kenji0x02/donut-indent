@@ -1,3 +1,4 @@
+"use strict";
 var gulp = require('gulp');
 var uglify = require('gulp-uglify');// $で使用
 // for browserify
@@ -23,7 +24,7 @@ var copyright = [
 
 gulp.task('uglify', function() {
   browserify({
-    entries: ['lib/donut-indent.js'],
+    entries: ['src/donut-indent.js'],
     debug: true
   })
     .bundle()
@@ -37,4 +38,5 @@ gulp.task('uglify', function() {
     .pipe(sourcemaps.write('./')) // sourcemaps
     .pipe(gulp.dest('.'));
 });
+
 gulp.task('default', ['uglify']);

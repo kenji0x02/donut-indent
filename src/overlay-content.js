@@ -30,7 +30,7 @@ function ulElement(hObject, headerIDs) {
   content += listElement($(lastValue).text(), headerIDs[hObject.length - 1]);
 
   // post
-  content += ketUl(-ulCount);
+  content += ketUl(-ulCount - 1);
 
   return content;
 }
